@@ -48,7 +48,23 @@ unsigned char get_page(void)
 //
 void new_process(int proc_num, int page_count)
 {
-    // TODO
+    int page_table = get_page();
+    mem[64 + proc_num] = page_table;
+
+    if (PAGE_COUNT < proc_num) {
+        printf("OOM: proc %d: page table\n", proc_num);
+    }
+
+    if ((PAGE_SIZE - 2) < page_count) {
+        printf("OOM: proc %d: data page\n", proc_num);
+    }
+    else {
+        for (int i = 0; i < page_count; ++i) {
+            unsigned char new_page = get_page();
+            int pt_addr = get_address(page_table, i);
+            mem[pt_addr] = new_page;
+        }
+    }
 }
 //
 // Get the page table for a given process
