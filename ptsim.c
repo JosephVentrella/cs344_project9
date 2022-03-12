@@ -103,6 +103,10 @@ void print_page_table(int proc_num)
         }
     }
 }
+
+void deallocate_page(int p){
+    mem[p] = 0;
+}
 //
 // Main -- process command line
 //
