@@ -130,6 +130,12 @@ int get_physical_address(int proc_num, int virtual_addr) {
     return physical_address;
 }
 
+void store_value(int proc_num, int virtual_addr, int val) {
+    int physical_address = get_physical_address(proc_num, virtual_addr);
+    mem[physical_address] = val;
+    printf("Store proc %d: %d => %d, value=%d\n", proc_num, virtual_addr, physical_address, val);
+}
+
 void load_value(int proc_num, int virtual_addr) {
     int physical_address = get_physical_address(proc_num, virtual_addr);
     int val = mem[physical_address];
