@@ -107,6 +107,19 @@ void print_page_table(int proc_num)
 void deallocate_page(int p){
     mem[p] = 0;
 }
+
+void kill_process(int p){
+    int page_table = get_page_table(p);
+    for(int i=0; i<= page_table; ++i){
+        int page_table_address = get_address(page_table, i);
+        if(mem[page_table_address] != 0){
+            int page_table_page = mem[page_table_address];
+            deallocate_page(page_table_page);
+        }
+    }
+    deallocate_page(page_table);
+}
+
 //
 // Main -- process command line
 //
