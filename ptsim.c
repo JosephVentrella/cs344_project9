@@ -120,6 +120,16 @@ void kill_process(int p){
     deallocate_page(page_table);
 }
 
+int get_physical_address(int proc_num, int virtual_addr) {
+    int virtual_page = virtual_addr >> 8;
+    int offset = virtual_addr & 255;
+    int page_table = get_page_table(proc_num);
+    int page_table_address = get_address(page_table, 0);
+    int physical_page = mem[virtual_page + page_table_address];
+    int physical_address = (physical_page << 8) | offset;
+    return physical_address;
+}
+
 //
 // Main -- process command line
 //
