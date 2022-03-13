@@ -152,7 +152,6 @@ int main(int argc, char *argv[])
         fprintf(stderr, "usage: ptsim commands\n");
         return 1;
     }
-    
     initialize_mem();
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "np") == 0) {
@@ -166,6 +165,21 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[i], "ppt") == 0) {
             int proc_num = atoi(argv[++i]);
             print_page_table(proc_num);
+        }
+        else if (strcmp(argv[i], "kp") == 0) {
+            int n = atoi(argv[++i]);
+            kill_process(n);
+        }
+        else if (strcmp(argv[i], "sb") == 0) {
+            int n = atoi(argv[++i]);
+            int a = atoi(argv[++i]);
+            int b = atoi(argv[++i]);
+            store_value(n, a, b);
+        }
+        else if (strcmp(argv[i], "lb") == 0) {
+            int n = atoi(argv[++i]);
+            int a = atoi(argv[++i]);
+            load_value(n, a);
         }
     }
 }
